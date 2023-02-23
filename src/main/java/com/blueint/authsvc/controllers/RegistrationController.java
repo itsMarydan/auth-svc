@@ -1,7 +1,8 @@
 package com.blueint.authsvc.controllers;
 
 import com.blueint.authsvc.model.User;
-import com.blueint.authsvc.repository.UserRepository;
+import com.blueint.authsvc.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,17 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@Controller
+@Controller @RequiredArgsConstructor
 public class RegistrationController {
 
-    private final UserRepository userRepository;
 
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    public RegistrationController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -30,7 +27,7 @@ public class RegistrationController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        userService.saveUser(user);
         return "redirect:/login";
     }
 }
