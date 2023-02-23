@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Tranzo | Login</title>
+</head>
+<body>
+
+<div class="login-frame">
+  <div class="login-advertise-box bg-primary">
+    <div class="display">
+      <div class="title">
+        <h3 class="text-primary">Tranzo - The Secure Content Hub</h3>
+      </div>
+      <div class="image">
+      </div>
+      <div class="content text-primary">
+        <p>Thanks for choosing Tranzo. Ready to get to work? </p>
+      </div>
+
+    </div>
+  </div>
+  <div class="login-form-box">
+    <div class="form">
+      <div th:if="${param.error}" class="alert alert-danger">Invalid username and password.</div>
+      <div th:if="${param.logout}" class="alert alert-success">You have been logged out.</div>
+      <form th:action="@{/login}" method="post">
+        <div>
+          <input placeholder="username" type="text" id="username" name="username" required />
+        </div>
+        <div>
+          <input placeholder="Password" type="password" id="password" name="password" required />
+        </div>
+        <div>
+          <button class="btn bg-primary text-primary" type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+    <div class="divider">
+      <hr>
+      <p>or</p>
+      <hr>
+    </div>
+    <div class="oauth">
+
+    </div>
+  </div>
+  </div>
+</body>
+</html>

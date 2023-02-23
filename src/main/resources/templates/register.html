@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Tranzo | Register</title>
+</head>
+<body>
+
+<div class="signup-frame">
+    <div class="signup-advertise-box bg-primary">
+       <div class="display">
+           <div class="title">
+               <h3 class="text-primary">Ready to manage your content with ease? Sign up for Tranzo.</h3>
+           </div>
+           <div class="image">
+           </div>
+           <div class="content text-primary">
+               <p>Tranzo provides a secure and reliable way to store, organize, and share your content, all in one central hub.</p>
+           </div>
+
+
+
+
+       </div>
+    </div>
+    <div class="signup-form-box">
+        <div class="form">
+            <form th:action="@{/register}" method="post" th:object="${user}">
+                <div>
+                    <input placeholder="Full Name" type="text" id="username" name="username" required />
+                </div>
+                <div>
+                    <input placeholder="Email" type="email" id="email" name="email" required />
+                </div>
+                <div>
+                    <input placeholder="Password" type="password" id="password" name="password" required />
+                </div>
+                <div>
+                    <input placeholder="Confirm Password" type="password" id="confirm" name="confirm-password" required />
+                </div>
+                <div>
+                    <button type="submit">Create Account</button>
+                </div>
+            </form>
+        </div>
+        <div class="divider">
+            <hr>
+            <p>or</p>
+            <hr>
+        <div class="oauth">
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
