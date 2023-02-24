@@ -4,10 +4,6 @@ ENV SPRING_PROFILES_ACTIVE=dev
 
 WORKDIR /app
 
-#COPY build.gradle settings.gradle gradlew /app/
-
-#COPY src /app/src
-
 COPY . /app
 
 
