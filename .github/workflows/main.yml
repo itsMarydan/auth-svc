@@ -22,15 +22,22 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install Docker and Docker Compose
-      run: |
-        sudo apt-get update
-        sudo apt-get -y install docker.io
-        sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        sudo chmod +x /usr/local/bin/docker-compose
+#    - name: Install Docker and Docker Compose
+#      run: |
+#        sudo apt-get update
+#        sudo apt-get -y install docker.io
+#        sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+#        sudo chmod +x /usr/local/bin/docker-compose
 
-    - name: Start services with Docker Compose
-      run: docker-compose up -d
+#    - name: Start services with Docker Compose
+#      run: docker-compose up -d
+
+    - uses: actions/checkout@v3
+    - name: run docker-compose
+      uses: sudo-bot/action-docker-compose@latest
+      with:
+        # https://docs.docker.com/compose/reference/overview/
+        cli-args: "up"
 
     - name: Build and run Spring Boot application
       run: |
