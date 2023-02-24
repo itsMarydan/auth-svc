@@ -8,12 +8,11 @@ WORKDIR /app
 
 #COPY src /app/src
 
-copy . /app
+COPY --chown=gradle:gradle . /app
 
 
-#RUN ./gradlew build --no-daemon
+RUN ./gradlew build --no-daemon
 
-Run ./gradlew clean build --no-daemon
 
 FROM openjdk:19
 
