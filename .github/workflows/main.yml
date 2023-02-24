@@ -39,6 +39,8 @@ jobs:
         # https://docs.docker.com/compose/reference/overview/
         cli-args: "up -d"
 
+    - name: Print Redis container logs
+      run: docker logs redis
 
     - uses: actions/setup-java@v3
       with:
