@@ -1,19 +1,5 @@
 version: "3.9"
 services:
-  app:
-    build: .
-    image: blueinit/auth-svc:1.0.0
-    ports:
-      - "80:80"
-    volumes:
-      - .:/code
-    environment:
-      - SESSION_STORE_TYPE=redis
-      - REDIS_HOST=redis
-      - DB_URL=jdbc:postgresql://postgres:5432/auth_svc
-      - ZIPKIN_BASE_URL=http://zipkin:9411
-    depends_on:
-      - postgres
   zipkin:
     container_name: zipkin
     image: openzipkin/zipkin
