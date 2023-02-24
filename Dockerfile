@@ -11,7 +11,7 @@ WORKDIR /app
 copy . /app
 
 
-RUN gradle build --no-daemon
+RUN ./gradlew build --no-daemon
 
 FROM openjdk:19
 
