@@ -1,5 +1,18 @@
 version: "3.9"
 services:
+  auth-svc:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    container_name: auth-svc
+    image: blueinit/auth-svc:${TAG}
+    ports:
+      - "8080:8080"
+    environment:
+      - REDIS_HOST=redis
+      - DB_URL=jdbc:postgresql://postgres:5432/postgres
+      - ZIPKIN_BASE_URL=http://zipkin:9411
+      - SPRING_PROFILES_ACTIVE=dev
   zipkin:
     container_name: zipkin
     image: openzipkin/zipkin

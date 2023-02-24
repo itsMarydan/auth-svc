@@ -2,15 +2,44 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
-    paths-ignore:
-      - 'kubernetes/**' # Ignore changes to the "kubernetes" directory  
+    branches: [ "main", "git-actions" ]
 
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
+
+#    container: gradle:jdk19
+
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres:15.2
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        # Docker Hub image
+        image: redis/redis-stack:latest
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      zipkin:
+        # Docker Hub image
+        image: openzipkin/zipkin
 
     steps:
     - name: Generate tag from timestamp
@@ -19,35 +48,6 @@ jobs:
         echo $(date +'%Y%m%d%H%M%S') >> tag.txt
         echo "tag=$(cat tag.txt)" >> $GITHUB_ENV
 
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-#    - name: Install Docker and Docker Compose
-#      run: |
-#        sudo apt-get update
-#        sudo apt-get -y install docker.io
-#        sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-#        sudo chmod +x /usr/local/bin/docker-compose
-
-#    - name: Start services with Docker Compose
-#      run: docker-compose up -d
-
-    - uses: actions/checkout@v3
-    - name: run docker-compose
-      uses: sudo-bot/action-docker-compose@latest
-      with:
-        # https://docs.docker.com/compose/reference/overview/
-        cli-args: "up -d"
-
-    - name: Print Redis container logs
-      run: docker logs redis
-
-    - uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '19'
-        cache: 'gradle'
-    - run: ./gradlew build --no-daemon
 
     - uses: actions/checkout@v3
     - name: Build the Docker image
@@ -63,10 +63,4 @@ jobs:
       run: docker push blueinit/auth-svc:${{ env.tag }}
 
 
-    - uses: actions/checkout@v3
-    - name: run docker-compose
-      uses: sudo-bot/action-docker-compose@latest
-      with:
-        # https://docs.docker.com/compose/reference/overview/
-        cli-args: "down -d"
         
