@@ -2,6 +2,8 @@ FROM gradle:jdk19 AS builder
 
 WORKDIR /app
 
+ENV DB_URL=jdbc:postgresql://localhost:5432/postgres
+
 COPY build.gradle settings.gradle gradlew /app/
 COPY src /app/src
 

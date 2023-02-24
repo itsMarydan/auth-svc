@@ -37,7 +37,7 @@ jobs:
       uses: sudo-bot/action-docker-compose@latest
       with:
         # https://docs.docker.com/compose/reference/overview/
-        cli-args: "up"
+        cli-args: "up -d"
 
     - name: Build and run Spring Boot application
       run: |
@@ -54,5 +54,13 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}     
     
     - name: Push Docker image
-      run: docker push blueinit/auth-svc:${{ env.tag }} 
+      run: docker push blueinit/auth-svc:${{ env.tag }}
+
+
+    - uses: actions/checkout@v3
+    - name: run docker-compose
+      uses: sudo-bot/action-docker-compose@latest
+      with:
+        # https://docs.docker.com/compose/reference/overview/
+        cli-args: "down"
         
