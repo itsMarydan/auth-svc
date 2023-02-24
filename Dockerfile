@@ -8,7 +8,7 @@ WORKDIR /app
 
 #COPY src /app/src
 
-COPY --chown=gradle:gradle . /app
+COPY . /app
 
 
 RUN ./gradlew build --no-daemon
