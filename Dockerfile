@@ -7,7 +7,8 @@ ENV DB_URL=jdbc:postgresql://localhost:5432/postgres
 COPY build.gradle settings.gradle gradlew /app/
 COPY src /app/src
 
-RUN ./gradlew build
+#RUN ./gradlew build
+RUN gradle build --no-daemon
 
 FROM openjdk:19
 
