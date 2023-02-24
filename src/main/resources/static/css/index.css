@@ -1,0 +1,104 @@
+/* Signup_Page */
+/* Path: src/main/resources/static/signup.css */
+.signup-frame{
+    width: 100%;
+    height: 100%;
+}
+
+.signup-advertise-box{
+    position: absolute;
+    width: 558px;
+    height: 910px;
+    left: 22px;
+    top: 36px;
+    border-radius: 20px;
+}
+
+.signup-advertise-box title{
+    position: absolute;
+    width: 460px;
+    height: 147px;
+    left: 61px;
+    top: 124px;
+    display: flex;
+    align-items: center;
+}
+
+.signup-advertise-box content{
+    width: 475px;
+    height: 155px;
+    display: flex;
+    align-items: center;
+}
+
+.display{
+    padding: 20px;
+}
+.signup-advertise-box .image{
+    width: 553px;
+    height: 499px;
+    left: 22px;
+    top: 280px;
+    background: url(../assets/signup.png);
+}
+
+
+
+.signup-form-box{
+    position: absolute;
+    width: 854px;
+    height: 977px;
+    left: 650px;
+    top: 5px;
+}
+
+
+/* Inputs */
+input{
+    color: #0A4B61;
+    background-color: #E0E2F2;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    padding: 8px;
+    margin: 4px 20px;
+    width: 360px;
+    border-radius: 15px;
+    border: none;
+}
+/* Color System */
+
+.bg-primary{
+    background-color: #544FBF;
+}
+.bg-light{
+    background-color: #FDFEFF;
+}
+
+.bg-light-primary{
+    background-color: #E0E2F2;
+}
+
+.text-primary{
+    color: #E0E2F2;;
+}
+
+/* Font System */
+
+h3{
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 45px;
+}
+
+p{
+
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 30px;
+}

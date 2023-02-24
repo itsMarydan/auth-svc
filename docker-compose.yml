@@ -1,0 +1,50 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    image: blueinit/auth-svc:1.0.0
+    ports:
+      - "80:80"
+    volumes:
+      - .:/code
+    environment:
+      - SESSION_STORE_TYPE=redis
+      - REDIS_HOST=redis
+      - DB_URL=jdbc:postgresql://postgres:5432/auth_svc
+      - ZIPKIN_BASE_URL=http://zipkin:9411
+    depends_on:
+      - postgres
+  zipkin:
+    container_name: zipkin
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+  postgres:
+    container_name: postgres
+    image: postgres:15.2
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/private/docker-db/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+  redis:
+    container_name: redis
+    image: redis/redis-stack:latest
+    ports:
+      - 6379:6379
+      - 8001:8001
+    volumes:
+      - ~/private/docker-db/redis:/var/lib/redis
+  nfs:
+    container_name: nfs
+    image: itsthenetwork/nfs-server-alpine
+    ports:
+      - "2049:2049"
+    environment:
+      SHARED_DIRECTORY: /var/nfsshare
+    volumes:
+      - ~/private/nfs-servers/nfsshare:/var/nfsshare
+volumes:
+  db-data:
