@@ -18,6 +18,10 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven {
+		url 'https://repo.clojars.org'
+		name 'Clojars'
+	}
 }
 
 dependencies {
@@ -39,6 +43,8 @@ dependencies {
 	implementation 'org.springframework.data:spring-data-redis:3.0.2'
 	implementation 'javax.servlet:javax.servlet-api:4.0.1'
 	implementation 'com.auth0:java-jwt:4.3.0'
+	implementation 'org.springframework.session:spring-session-jdbc:3.0.0'
+	implementation 'com.h2database:h2:2.1.214'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
