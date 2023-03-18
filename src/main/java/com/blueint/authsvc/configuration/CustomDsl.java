@@ -15,7 +15,9 @@ public class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity> {
         customAuthenticationFilter.setFilterProcessesUrl("/api/v1/login");
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+
     }
+
 
     public static CustomDsl customDsl() {
         return new CustomDsl();

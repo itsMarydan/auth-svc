@@ -8,10 +8,17 @@ import com.blueint.authsvc.model.Role;
 import com.blueint.authsvc.model.User;
 import com.blueint.authsvc.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nimbusds.jose.KeySourceException;
+import com.nimbusds.jose.jwk.JWKMatcher;
+import com.nimbusds.jose.jwk.JWKSelector;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.source.JWKSource;
+import com.nimbusds.jose.proc.SecurityContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +39,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class AuthRoutes {
 
     private final UserService userService;
+
+
+
+    private final JWKSource<SecurityContext> jwkSource;
 
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -74,4 +85,21 @@ public class AuthRoutes {
         }
 
     }
+
+
+        @GetMapping("/.well-known/jwks.json")
+        public ResponseEntity<Map<String, Object>> keys() throws KeySourceException {
+            JWKSet jwkSet = (JWKSet) jwkSource.get(new JWKSelector(new JWKMatcher.Builder().build()), null);
+            return ResponseEntity.ok(jwkSet.toJSONObject());
+        }
+
+
+
+        // @GetMapping("/.well-known/jwks.json")
+        // public ResponseEntity<?> keys() throws KeySourceException {
+        //     List<?> jwkSet =  jwkSource.get(new JWKSelector(new JWKMatcher.Builder().build()), null);
+        //     return ResponseEntity.ok(jwkSet);
+        // }
+
+        
 }

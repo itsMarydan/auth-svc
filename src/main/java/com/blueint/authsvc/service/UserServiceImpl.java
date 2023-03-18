@@ -26,8 +26,12 @@ public class UserServiceImpl implements UserService {
     public User saveUser(User user) {
         log.info("Saving new user {} to the database", user.getName());
         log.info("Adding default values for locked {} and active {}", userDefaults.isDefaultUserStateLocked(), userDefaults.isDefaultUserStateActive());
-        user.setLocked(userDefaults.isDefaultUserStateLocked());
-        user.setActive(userDefaults.isDefaultUserStateActive());
+        if (!user.getLocked()) {
+            user.setLocked(userDefaults.isDefaultUserStateLocked());
+        }
+        if (!user.getActive()) {
+            user.setActive(userDefaults.isDefaultUserStateActive());
+        }
 //        TODO: Add user validation here
         return userRepository.save(user);
     }
